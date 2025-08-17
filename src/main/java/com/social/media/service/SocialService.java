@@ -15,16 +15,18 @@ public class SocialService {
     @Autowired
     SocialUserRepository socialUserRepository;
 
-
-    public List<SocialUser> getAllUsers(){
-
-     return  socialUserRepository.findAll();
-//        if(socialUsers.isEmpty()) return new ArrayList<>();
-//        else return  socialUsers;
-
+    public List<SocialUser> getAllUsers() {
+        return socialUserRepository.findAll();
     }
 
-    public SocialUser saveUser(SocialUser socialUser){
+    public SocialUser saveUser(SocialUser socialUser) {
         return socialUserRepository.save(socialUser);
+    }
+
+    public SocialUser deleteUser(Long id) {
+        SocialUser socialUser = socialUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        socialUserRepository.delete(socialUser);
+        return socialUser;
     }
 }

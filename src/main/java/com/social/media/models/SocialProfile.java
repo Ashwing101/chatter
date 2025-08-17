@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 public class SocialProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @OneToOne(mappedBy = "socialProfile")
+    @OneToOne
     @JoinColumn(name = "Social_User")
     @JsonIgnore
     private SocialUser user;
+
+    private String description;
 
 }

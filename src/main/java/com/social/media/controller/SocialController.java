@@ -14,15 +14,22 @@ import java.util.List;
 public class SocialController {
 
     @Autowired
-    SocialService socialService;
+    private SocialService socialService;
 
     @GetMapping("/social/users")
-    public ResponseEntity<List<SocialUser>> getUser(){
-       return new ResponseEntity<>(socialService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<SocialUser>> getUsers(){
+        return new ResponseEntity<>(socialService.getAllUsers(), HttpStatus.OK);
     }
 
-    @PostMapping("/social/users")
+    @PostMapping("/social/saveUser")
     public ResponseEntity<SocialUser> saveUser(@RequestBody SocialUser socialUser){
         return new ResponseEntity<>(socialService.saveUser(socialUser), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/social/users/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId){
+        socialService.deleteUser(userId);
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
+
     }
 }
